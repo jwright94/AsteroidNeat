@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using AsteroidNeat.Worlds;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -33,7 +34,7 @@ namespace AsteroidNeat
             graphics.PreferredBackBufferHeight = 800;
             graphics.ApplyChanges();
 
-            world = new World()
+            world = new GameplayWorld()
             {
                 Width = graphics.PreferredBackBufferWidth,
                 Height = graphics.PreferredBackBufferHeight
@@ -53,7 +54,7 @@ namespace AsteroidNeat
 
             Resources.Load(Content);
 
-            world.Initialize();
+            ((GameplayWorld)world).Initialize();
         }
 
         /// <summary>
@@ -75,7 +76,9 @@ namespace AsteroidNeat
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            world.Update((float)gameTime.ElapsedGameTime.Milliseconds / 1000f);
+            var nextWorld = world.Update((float)gameTime.ElapsedGameTime.Milliseconds / 1000f);
+
+            world = nextWorld;
 
             base.Update(gameTime);
         }
