@@ -45,3 +45,11 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+AsteroidNeat/bin/
+AsteroidNeat/obj/
+
+AsteroidNeat/Content/bin/
+AsteroidNeat/Content/obj/
+AsteroidNeat/Assets/bin/
+AsteroidNeat/Assets/obj/
