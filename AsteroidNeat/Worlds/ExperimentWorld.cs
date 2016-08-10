@@ -68,6 +68,7 @@ namespace AsteroidNeat.Worlds
 
         public override void Draw(SpriteBatch sb)
         {
+            return;
             base.Draw(sb);
             DrawUI(sb);
         }

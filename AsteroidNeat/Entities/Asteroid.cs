@@ -49,8 +49,8 @@ namespace AsteroidNeat.Entities
             if(Radius <= 16) return;
 
             var breakDirection = new Vector2(
-                (float)(random.NextDouble() - 0.5 * 2.0),
-                (float)(random.NextDouble() - 0.5 * 2.0));
+                (float)((random.NextDouble() - 0.5) * 2.0),
+                (float)((random.NextDouble() - 0.5) * 2.0));
 
             var breakSpeed = random.Next(100, 200);
 

@@ -19,23 +19,31 @@ namespace AsteroidNeat.Entities.Ships
 
         public override void Update(float dt)
         {
-            brain.InputSignalArray[0] = 1;
-            brain.InputSignalArray[1] = MathHelper.WrapAngle(Rotation) / Math.PI;
+            var angle = MathHelper.WrapAngle(Rotation)/Math.PI;
+            var currInput = 0;
 
-            int scans = 4;
+            brain.InputSignalArray[currInput++] = 1;
+
+            brain.InputSignalArray[currInput++] = Math.Cos(angle);
+            brain.InputSignalArray[currInput++] = Math.Sin(angle);
+
+            brain.InputSignalArray[currInput++] = Velocity.X;
+            brain.InputSignalArray[currInput++] = Velocity.Y;
+
+            int scans = 8;
 
             for (int scan = 0; scan < scans; scan++)
             {
-                var angle = (2.0*Math.PI)/ (double)scans *(double)scan;
-                var result = Sense((float)angle, world.Width);
+                var senseAngle = (2.0*Math.PI)/ (double)scans *(double)scan;
+                var result = Sense((float)senseAngle, world.Width);
 
-                brain.InputSignalArray[2 + scan] = result;
+                brain.InputSignalArray[currInput++] = result;
             }
 
             brain.Activate();
 
-            Throttle = (float)brain.OutputSignalArray[0];
-            Tilt = (float)brain.OutputSignalArray[1];
+            Throttle = (float)MathHelper.Clamp((float)brain.OutputSignalArray[0], -1, 1);
+            Tilt = (float)MathHelper.Clamp((float)brain.OutputSignalArray[1], -1, 1);
             Fire = brain.OutputSignalArray[2] >= 0.5;
 
             base.Update(dt);

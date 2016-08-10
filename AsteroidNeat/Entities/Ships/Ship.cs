@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AsteroidNeat.Entities.Ships
 {
@@ -83,6 +84,17 @@ namespace AsteroidNeat.Entities.Ships
 
             if(!world.IsBackground)
                 Resources.ShootSfx.Play();
+        }
+
+        public override void Draw(SpriteBatch sb)
+        {
+            sb.Draw(Resources.Ship,
+                position: Position,
+                origin: new Vector2(Resources.Ship.Width, Resources.Ship.Height) / 2f,
+                color: Resources.ForegroundColor,
+                rotation: Rotation);
+
+            base.Draw(sb);
         }
     }
 }

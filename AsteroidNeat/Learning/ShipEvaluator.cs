@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using AsteroidNeat.Worlds;
 using SharpNeat.Core;
 using SharpNeat.Phenomes;
@@ -12,24 +13,32 @@ namespace AsteroidNeat.Learning
     {
         public FitnessInfo Evaluate(IBlackBox phenome)
         {
+            double compositeScore = 0;
 
-            GameplayWorld gameplayWorld = new GameplayWorld()
+            for (int trial = 0; trial < 1; trial++)
             {
-                Width = 800,
-                Height = 800
-            };
+                GameplayWorld gameplayWorld = new GameplayWorld()
+                {
+                    Width = 800,
+                    Height = 800
+                };
 
-            gameplayWorld.IsBackground = true;
+                gameplayWorld.IsBackground = true;
 
-            gameplayWorld.InitializeAI(phenome);
+                gameplayWorld.InitializeAI(phenome);
 
-            while (!gameplayWorld.GameOver)
-            {
-                // Simulate game at 30fps
-                gameplayWorld.Update(1f/30f);
+                while (!gameplayWorld.GameOver)
+                {
+                    // Simulate game at 30fps
+                    gameplayWorld.Update(1f/30f);
+
+                    // Sleep so my CPU doesn't catch fire
+                    //Thread.Sleep(30);
+                }
+
+                compositeScore += gameplayWorld.Score / 1000000.0;
             }
-
-            return new FitnessInfo(gameplayWorld.Score, gameplayWorld.Score);
+            return new FitnessInfo(compositeScore, compositeScore);
         }
 
         public void Reset()

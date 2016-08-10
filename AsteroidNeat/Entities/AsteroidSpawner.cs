@@ -45,17 +45,17 @@ namespace AsteroidNeat.Entities
             var asteroidRadius = random.Next(16, 100);
 
             var spawnVelocity = new Vector2(
-                (float)(random.NextDouble() - 0.5 * 2.0),
-                (float)(random.NextDouble() - 0.5 * 2.0));
+                (float)((random.NextDouble() - 0.5) * 2.0),
+                (float)((random.NextDouble() - 0.5) * 2.0));
 
-            spawnVelocity *= random.Next(10, 100);
+            spawnVelocity *= random.Next(200, 300);
 
             world.Add(new Asteroid()
             {
                 Position = spawnLocation,
                 Radius = asteroidRadius,
                 Velocity = spawnVelocity,
-                Rotation = (float)random.NextDouble() * 360
+                Rotation = (float)(random.NextDouble() * Math.PI * 2.0)
             });
         }
 

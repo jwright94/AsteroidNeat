@@ -37,7 +37,7 @@ namespace AsteroidNeat
             // TODO: Add your initialization logic here
             
 
-            world = new ExperimentWorld()
+            world = new WorldSelector()
             {
                 Width = graphics.PreferredBackBufferWidth,
                 Height = graphics.PreferredBackBufferHeight

@@ -52,11 +52,13 @@
     <Compile Include="Learning\SimpleNeatExperiment.cs" />
     <Compile Include="Learning\TestFlight.cs" />
     <Compile Include="Worlds\ExperimentWorld.cs" />
+    <Compile Include="Worlds\ReplayWorld.cs" />
     <Compile Include="Worlds\World.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="Worlds\GameplayWorld.cs" />
+    <Compile Include="Worlds\WorldSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="log4net">
