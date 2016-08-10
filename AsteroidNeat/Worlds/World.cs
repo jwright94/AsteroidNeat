@@ -3,39 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AsteroidNeat.Entities;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace AsteroidNeat
+namespace AsteroidNeat.Worlds
 {
-    class World
+    abstract class World
     {
         public int Width { get; set; }
         public int Height { get; set; }
         public float Score { get; set; }
 
-        public List<GameObject> gameObjects = new List<GameObject>();
+        public readonly List<GameObject> gameObjects = new List<GameObject>();
 
         private List<GameObject> removeMe = new List<GameObject>();
         private List<GameObject> addMe = new List<GameObject>();
-
-        private Player player;
-
-        public World()
-        {
-            
-        }
-
-        public void Initialize()
-        {
-            player = new Player()
-            {
-                Position = new Vector2(Width / 2f, Height / 2f),
-                world = this
-            };
-            Add(player);
-            Add(new AsteroidSpawner());
-        }
 
         public void Add(GameObject gameObject)
         {
@@ -48,20 +29,20 @@ namespace AsteroidNeat
             removeMe.Add(gameObject);
         }
 
-        public void Draw(SpriteBatch sb)
+        public virtual void Draw(SpriteBatch sb)
         {
-            foreach(var go in gameObjects)
+            foreach (var go in gameObjects)
                 go.Draw(sb);
-
-            DrawUI(sb);
         }
 
-        public void Update(float dt)
+        public virtual World Update(float dt)
         {
             foreach (var go in gameObjects)
                 go.Update(dt);
 
             HandleAddsAndDeletes();
+
+            return this;
         }
 
         private void HandleAddsAndDeletes()
@@ -73,9 +54,5 @@ namespace AsteroidNeat
             addMe.Clear();
         }
 
-        private void DrawUI(SpriteBatch sb)
-        {
-            sb.DrawString(Resources.Font, $"Score: {(Score)}", Vector2.Zero, Resources.ForegroundColor);
-        }
     }
 }

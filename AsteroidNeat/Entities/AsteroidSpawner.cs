@@ -42,11 +42,13 @@ namespace AsteroidNeat.Entities
                     useAlternative ? 0 : world.Height);
             }
 
-            var asteroidRadius = random.Next(16, 128);
+            var asteroidRadius = random.Next(16, 100);
 
             var spawnVelocity = new Vector2(
                 (float)(random.NextDouble() - 0.5 * 2.0),
                 (float)(random.NextDouble() - 0.5 * 2.0));
+
+            spawnVelocity *= random.Next(10, 100);
 
             world.Add(new Asteroid()
             {

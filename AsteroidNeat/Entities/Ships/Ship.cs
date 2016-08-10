@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
-namespace AsteroidNeat.Entities
+namespace AsteroidNeat.Entities.Ships
 {
-    class Player : PhysicsObject
+    class Ship : PhysicsObject
     {
+
+        public bool IsDead;
 
         public float Throttle;
         public float Tilt;
@@ -21,25 +21,19 @@ namespace AsteroidNeat.Entities
 
         private float fireTimer;
 
-        public Player()
+        public Ship()
         {
             Speed = 256 + 128;
             RotationalSpeed = 1.5f * (float)Math.PI;
             Radius = 12;
-            FireRate = 1f/4f;
+            FireRate = 1f / 4f;
+            Rotation = (float)-Math.PI/2f;
         }
 
         public override void Update(float dt)
         {
-            //Rotation = (float)Math.Atan2(direction.Y, direction.X);
-
-            HandleInput();
-
-            // Physics
-            Rotation += Tilt*RotationalSpeed*dt;
-            Velocity += new Vector2((float) Math.Cos(Rotation), (float) Math.Sin(Rotation))*Speed*Throttle*dt;
-
-            Tilt = Throttle = 0;
+            Rotation += Tilt * RotationalSpeed * dt;
+            Velocity += new Vector2((float)Math.Cos(Rotation), (float)Math.Sin(Rotation)) * Speed * Throttle * dt;
 
             if (Fire)
             {
@@ -51,6 +45,7 @@ namespace AsteroidNeat.Entities
                 }
             }
 
+            // Physics
             DoCollision();
 
             base.Update(dt);
@@ -66,6 +61,7 @@ namespace AsteroidNeat.Entities
                     var collisionInfo = CheckCollision(asteroid);
                     if (collisionInfo.IsColliding)
                     {
+                        IsDead = true;
                         world.Remove(this);
                     }
                 }
@@ -74,47 +70,18 @@ namespace AsteroidNeat.Entities
 
         private void FireWeapon()
         {
-            var bulletVector = new Vector2((float) Math.Cos(Rotation), (float) Math.Sin(Rotation));
+            var bulletVector = new Vector2((float)Math.Cos(Rotation), (float)Math.Sin(Rotation));
 
             var bullet = new Bullet()
             {
                 Radius = 8,
                 Position = Position,
-                Velocity = bulletVector*512 + Velocity
+                Velocity = bulletVector * 512 + Velocity
             };
 
             world.Add(bullet);
-            
+
             Resources.ShootSfx.Play();
-        }
-
-        private void HandleInput()
-        {
-            var ks = Keyboard.GetState();
-
-            // Input
-            if (ks.IsKeyDown(Keys.A))
-                Tilt = -1;
-            else if (ks.IsKeyDown(Keys.D))
-                Tilt = 1;
-
-            if (ks.IsKeyDown(Keys.S))
-                Throttle = -1;
-            else if (ks.IsKeyDown(Keys.W))
-                Throttle = 1;
-
-            Fire = ks.IsKeyDown(Keys.Space);
-        }
-
-        public override void Draw(SpriteBatch sb)
-        {
-            sb.Draw(Resources.Ship,
-                position: Position,
-                origin: new Vector2(Resources.Ship.Width, Resources.Ship.Height) / 2f,
-                color: Resources.ForegroundColor,
-                rotation: Rotation);
-
-            base.Draw(sb);
         }
     }
 }

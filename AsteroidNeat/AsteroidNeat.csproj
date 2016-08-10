@@ -44,12 +44,15 @@
     <Compile Include="Entities\CollisionInfo.cs" />
     <Compile Include="Entities\GameObject.cs" />
     <Compile Include="Entities\PhysicsObject.cs" />
-    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\Ships\AIShip.cs" />
+    <Compile Include="Entities\Ships\Player.cs" />
+    <Compile Include="Entities\Ships\Ship.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Worlds\World.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
-    <Compile Include="World.cs" />
+    <Compile Include="Worlds\GameplayWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -68,6 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Assets\Assets.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpNeatLib\SharpNeatLib.csproj">
+      <Project>{abc5c77a-deba-420c-926c-bd3e6f37ae15}</Project>
+      <Name>SharpNeatLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
