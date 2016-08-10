@@ -6,34 +6,55 @@ using AsteroidNeat.Entities;
 using AsteroidNeat.Entities.Ships;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpNeat.Phenomes;
 
 namespace AsteroidNeat.Worlds
 {
     class GameplayWorld : World
     {
-        private Player player;
+        private Ship ship;
 
         public GameplayWorld()
         {
             
         }
 
+        public bool GameOver
+        { get; set; }
+
+        public Ship Ship => ship;
+
         public void Initialize()
         {
-            player = new Player()
+            ship = new Player()
             {
-                Position = new Vector2(Width / 2f, Height / 2f),
-                world = this
+                Position = new Vector2(Width / 2f, Height / 2f)
             };
-            Add(player);
+
+            Add(ship);
             Add(new AsteroidSpawner());
+        }
+
+        public void InitializeAI(IBlackBox brain)
+        {
+            ship = new AIShip(brain)
+            {
+                Position = new Vector2(Width / 2f, Height / 2f)
+            };
+
+            Add(ship);
+            Add(new AsteroidSpawner());
+        }
+
+        public override World Update(float dt)
+        {
+            GameOver = ship.IsDead;
+            return base.Update(dt);
         }
 
         public override void Draw(SpriteBatch sb)
         {
-            foreach(var go in gameObjects)
-                go.Draw(sb);
-
+            base.Draw(sb);
             DrawUI(sb);
         }
 

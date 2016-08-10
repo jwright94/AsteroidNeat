@@ -12,6 +12,7 @@ namespace AsteroidNeat.Worlds
         public int Width { get; set; }
         public int Height { get; set; }
         public float Score { get; set; }
+        public bool IsBackground { get; set; }
 
         public readonly List<GameObject> gameObjects = new List<GameObject>();
 

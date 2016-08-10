@@ -81,7 +81,8 @@ namespace AsteroidNeat.Entities.Ships
 
             world.Add(bullet);
 
-            Resources.ShootSfx.Play();
+            if(!world.IsBackground)
+                Resources.ShootSfx.Play();
         }
     }
 }

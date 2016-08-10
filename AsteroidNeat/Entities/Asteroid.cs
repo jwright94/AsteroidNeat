@@ -40,7 +40,9 @@ namespace AsteroidNeat.Entities
         public void SplitApart()
         {
             world.Remove(this);
-            Resources.ExplosionSfx.Play();
+
+            if (!world.IsBackground)
+                Resources.ExplosionSfx.Play();
 
             world.Score += Radius*100;
 

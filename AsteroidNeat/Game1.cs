@@ -17,6 +17,11 @@ namespace AsteroidNeat
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.ApplyChanges();
+
         }
 
         private World world;
@@ -30,11 +35,9 @@ namespace AsteroidNeat
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 800;
-            graphics.ApplyChanges();
+            
 
-            world = new GameplayWorld()
+            world = new ExperimentWorld()
             {
                 Width = graphics.PreferredBackBufferWidth,
                 Height = graphics.PreferredBackBufferHeight
@@ -54,7 +57,7 @@ namespace AsteroidNeat
 
             Resources.Load(Content);
 
-            ((GameplayWorld)world).Initialize();
+            //((GameplayWorld)world).Initialize();
         }
 
         /// <summary>
