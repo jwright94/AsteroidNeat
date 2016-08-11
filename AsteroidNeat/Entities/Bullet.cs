@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,10 +16,23 @@ namespace AsteroidNeat.Entities
         {
             DoCollision();
             lifeTimer -= dt;
-            if(lifeTimer <= 0)
-                world.Remove(this);
 
-            base.Update(dt);
+            var removeBullet = lifeTimer <= 0;
+
+            DoPhysics(dt);
+
+            removeBullet |= Position.X < 0 || Position.Y < 0 || Position.X > world.Width || Position.Y > world.Height;
+
+            if (removeBullet)
+                world.Remove(this);
+            
+
+            //base.Update(dt);
+        }
+
+        private void DoPhysics(float dt)
+        {
+            Position += Velocity*dt;
         }
 
         private void DoCollision()

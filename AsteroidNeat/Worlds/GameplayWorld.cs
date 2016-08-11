@@ -48,7 +48,6 @@ namespace AsteroidNeat.Worlds
 
         public override World Update(float dt)
         {
-            Score += 10;
             GameOver = ship.IsDead;
             return base.Update(dt);
         }

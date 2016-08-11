@@ -15,7 +15,7 @@ namespace AsteroidNeat.Learning
         {
             double compositeScore = 0;
 
-            for (int trial = 0; trial < 1; trial++)
+            for (int trial = 0; trial < 3; trial++)
             {
                 GameplayWorld gameplayWorld = new GameplayWorld()
                 {

@@ -39,6 +39,7 @@ namespace AsteroidNeat.Entities
 
         public void SplitApart()
         {
+            world.AsteroidCount--;
             world.Remove(this);
 
             if (!world.IsBackground)
@@ -69,6 +70,8 @@ namespace AsteroidNeat.Entities
                 Velocity = -breakDirection * (float)breakSpeed,
                 Radius = Radius / 2f
             });
+
+            world.AsteroidCount += 2;
         }
     }
 }

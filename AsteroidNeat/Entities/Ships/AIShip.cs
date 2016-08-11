@@ -30,12 +30,12 @@ namespace AsteroidNeat.Entities.Ships
             brain.InputSignalArray[currInput++] = Velocity.X;
             brain.InputSignalArray[currInput++] = Velocity.Y;
 
-            int scans = 8;
+            int scans = 4;
 
             for (int scan = 0; scan < scans; scan++)
             {
                 var senseAngle = (2.0*Math.PI)/ (double)scans *(double)scan;
-                var result = Sense((float)senseAngle, world.Width);
+                var result = Sense((float)(senseAngle + angle), world.Width);
 
                 brain.InputSignalArray[currInput++] = result;
             }

@@ -15,14 +15,20 @@ namespace AsteroidNeat.Entities
         public override void Update(float dt)
         {
             spawnTimer -= dt;
-            if (spawnTimer < 0)
+            if (spawnTimer < 0 && world.AsteroidCount == 0)
             {
-                spawnTimer = random.Next(3000, 10000)/1000f;
-                SpawnAsteroid();
+                spawnTimer = random.Next(5000, 10000)/1000f;
+                for (int i = 0; i < 5; i++)
+                    SpawnAsteroid(64);
             }
         }
 
-        private void SpawnAsteroid()
+        private int CountAsteroids()
+        {
+            return world.gameObjects.Cast<Asteroid>().Count();
+        }
+
+        private void SpawnAsteroid(int asteroidRadius)
         {
             var spawnLocation = new Vector2();
 
@@ -42,8 +48,6 @@ namespace AsteroidNeat.Entities
                     useAlternative ? 0 : world.Height);
             }
 
-            var asteroidRadius = random.Next(16, 100);
-
             var spawnVelocity = new Vector2(
                 (float)((random.NextDouble() - 0.5) * 2.0),
                 (float)((random.NextDouble() - 0.5) * 2.0));
@@ -57,6 +61,8 @@ namespace AsteroidNeat.Entities
                 Velocity = spawnVelocity,
                 Rotation = (float)(random.NextDouble() * Math.PI * 2.0)
             });
+
+            world.AsteroidCount++;
         }
 
         public override void Draw(SpriteBatch sb)

@@ -12,7 +12,7 @@ namespace AsteroidNeat.Learning
     class TestFlight : SimpleNeatExperiment
     {
         public override IPhenomeEvaluator<IBlackBox> PhenomeEvaluator => new ShipEvaluator();
-        public override int InputCount => 5 + 8;
+        public override int InputCount => 5 + 4;
         public override int OutputCount => 3;
         public override bool EvaluateParents => true;
     }
