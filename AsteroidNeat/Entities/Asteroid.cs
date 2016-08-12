@@ -39,7 +39,6 @@ namespace AsteroidNeat.Entities
 
         public void SplitApart()
         {
-            world.AsteroidCount--;
             world.Remove(this);
 
             if (!world.IsBackground)
@@ -47,13 +46,13 @@ namespace AsteroidNeat.Entities
 
             world.Score += Radius*100;
 
-            if(Radius <= 16) return;
+            if(Radius <= 32) return;
 
             var breakDirection = new Vector2(
                 (float)((random.NextDouble() - 0.5) * 2.0),
                 (float)((random.NextDouble() - 0.5) * 2.0));
 
-            var breakSpeed = random.Next(100, 200);
+            var breakSpeed = 200;
 
             world.Add(new Asteroid()
             {
@@ -70,8 +69,16 @@ namespace AsteroidNeat.Entities
                 Velocity = -breakDirection * (float)breakSpeed,
                 Radius = Radius / 2f
             });
+        }
 
-            world.AsteroidCount += 2;
+        public override void OnAdd()
+        {
+            world.AsteroidCount++;
+        }
+
+        public override void OnRemove()
+        {
+            world.AsteroidCount--;
         }
     }
 }

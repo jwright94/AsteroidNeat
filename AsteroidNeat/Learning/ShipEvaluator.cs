@@ -14,8 +14,9 @@ namespace AsteroidNeat.Learning
         public FitnessInfo Evaluate(IBlackBox phenome)
         {
             double compositeScore = 0;
+            int trials = 3;
 
-            for (int trial = 0; trial < 3; trial++)
+            for (int trial = 0; trial < trials; trial++)
             {
                 GameplayWorld gameplayWorld = new GameplayWorld()
                 {
@@ -30,7 +31,7 @@ namespace AsteroidNeat.Learning
                 while (!gameplayWorld.GameOver)
                 {
                     // Simulate game at 30fps
-                    gameplayWorld.Update(1f/30f);
+                    gameplayWorld.Update(1f/15f);
 
                     // Sleep so my CPU doesn't catch fire
                     //Thread.Sleep(30);
@@ -38,6 +39,9 @@ namespace AsteroidNeat.Learning
 
                 compositeScore += gameplayWorld.Score / 1000000.0;
             }
+
+            compositeScore /= (double) trials;
+
             return new FitnessInfo(compositeScore, compositeScore);
         }
 

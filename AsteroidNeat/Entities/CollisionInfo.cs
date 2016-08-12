@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace AsteroidNeat.Entities
 {
-    class CollisionInfo
+    public class CollisionInfo
     {
         public bool IsColliding     { get; set; }
         public float Depth          { get; set; }

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AsteroidNeat.Entities
 {
-    class PhysicsObject : GameObject
+    public class PhysicsObject : GameObject
     {
 
         public Vector2 Position { get; set; }
@@ -39,6 +39,16 @@ namespace AsteroidNeat.Entities
         public override void Draw(SpriteBatch sb)
         {
 
+        }
+
+        public override void OnAdd()
+        {
+            
+        }
+
+        public override void OnRemove()
+        {
+            
         }
 
         public CollisionInfo CheckCollision(PhysicsObject obj)

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AsteroidNeat.Worlds
 {
-    abstract class World
+    public abstract class World
     {
         public int Width { get; set; }
         public int Height { get; set; }
@@ -17,8 +17,8 @@ namespace AsteroidNeat.Worlds
 
         public readonly List<GameObject> gameObjects = new List<GameObject>();
 
-        private List<GameObject> removeMe = new List<GameObject>();
-        private List<GameObject> addMe = new List<GameObject>();
+        private HashSet<GameObject> removeMe = new HashSet<GameObject>();
+        private HashSet<GameObject> addMe = new HashSet<GameObject>();
 
         public void Add(GameObject gameObject)
         {
@@ -49,8 +49,14 @@ namespace AsteroidNeat.Worlds
 
         private void HandleAddsAndDeletes()
         {
+            foreach (var r in removeMe)
+                r.OnRemove();
+
             gameObjects.RemoveAll(removeMe.Contains);
             gameObjects.AddRange(addMe);
+            
+            foreach (var r in addMe)
+                r.OnAdd();
 
             removeMe.Clear();
             addMe.Clear();

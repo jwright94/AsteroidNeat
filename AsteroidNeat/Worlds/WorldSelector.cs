@@ -33,7 +33,6 @@ namespace AsteroidNeat.Worlds
                         Width = 800,
                         Height = 800
                     };
-                    experimentWorld.Initialize();
                     return experimentWorld;
                 case Keys.D3:
                     var replayWorld = new ReplayWorld()

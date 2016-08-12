@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace AsteroidNeat.Entities.Ships
 {
-    class Ship : PhysicsObject
+    public class Ship : PhysicsObject
     {
 
         public bool IsDead;

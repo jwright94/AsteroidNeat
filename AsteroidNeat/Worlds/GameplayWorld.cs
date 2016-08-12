@@ -10,7 +10,7 @@ using SharpNeat.Phenomes;
 
 namespace AsteroidNeat.Worlds
 {
-    class GameplayWorld : World
+    public class GameplayWorld : World
     {
         private Ship ship;
 

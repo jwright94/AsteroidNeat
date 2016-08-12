@@ -11,6 +11,7 @@ namespace AsteroidNeat.Entities
     {
         private static Random random = new Random();
         private float spawnTimer;
+        private int numAsteroids = 5;
 
         public override void Update(float dt)
         {
@@ -18,8 +19,9 @@ namespace AsteroidNeat.Entities
             if (spawnTimer < 0 && world.AsteroidCount == 0)
             {
                 spawnTimer = random.Next(5000, 10000)/1000f;
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < numAsteroids; i++)
                     SpawnAsteroid(64);
+                numAsteroids++;
             }
         }
 
@@ -61,13 +63,21 @@ namespace AsteroidNeat.Entities
                 Velocity = spawnVelocity,
                 Rotation = (float)(random.NextDouble() * Math.PI * 2.0)
             });
-
-            world.AsteroidCount++;
         }
 
         public override void Draw(SpriteBatch sb)
         {
 
+        }
+
+        public override void OnAdd()
+        {
+            
+        }
+
+        public override void OnRemove()
+        {
+            
         }
     }
 }
